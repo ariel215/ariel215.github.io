@@ -1,5 +1,6 @@
 body {
     font-family:'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
+    margin:0px;
 }
 
 * h1 {
@@ -25,6 +26,7 @@ a:hover{
     left:0;
     overflow: hidden;
     padding-top: 20px;
+    background-image: linear-gradient(to bottom, lightblue, #d6c7d4)
 }
 
 .sidebar a{
@@ -38,5 +40,6 @@ a:hover{
     display: grid;
     grid-template-columns: repeat(1fr, 4);
     grid-template-rows: auto;
+    background-image: linear-gradient(to bottom right, lightblue, lightpink);
 
 }
