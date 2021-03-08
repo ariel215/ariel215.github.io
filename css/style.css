@@ -1,4 +1,21 @@
-.title {
-    align-self: center;
-    font-size: large;
+body {
+    font-family:'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
+    display: grid;
+    grid-template-columns: repeat(1fr, 4);
+    grid-template-rows: auto;
 }
+
+body h1 {
+    text-align: center;
+    grid-row: 1;
+}
+
+.links li{
+    grid-column: 1 / span 4
+}
+
+a:hover{
+    font-weight: bold;
+    font-style: italic;
+}
+
