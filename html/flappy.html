@@ -1,0 +1,126 @@
+<head>
+	<link rel="stylesheet" type="text/css" href="../css/style.css" />
+</head>
+
+<div class="page">
+
+	<div class="head">
+		SpeedFlappy
+	</div>
+	<div class="body">
+	<canvas id="canvas" width=400 height=400 ></canvas>
+	<p> Press spacebar to flap, P to pause </p>
+	</div>
+</div>
+
+<script>
+var canvas = document.getElementById("canvas");
+var ctx = canvas.getContext("2d");
+
+var bars = [];
+var bird = {
+	x: 30,
+	y: canvas.height - 30,
+	velocity: 5,
+	};
+
+function drawPipe(x, height, gap){
+	let fill = ctx.fillStyle;
+	ctx.fillStyle="red";
+	ctx.fillRect(x, 0, 10, height);
+	
+	let lowerheight = height + gap;
+	ctx.fillRect(x, lowerheight, 10, canvas.height-lowerheight);
+	ctx.fillStyle = fill;
+}
+
+function drawBird(){
+	let x = bird.x;
+	let y = bird.y;
+	let fill = ctx.fillStyle;
+	ctx.beginPath();
+	ctx.arc(x,y, 10, 0, 2*Math.PI);
+	ctx.fillStyle="white";
+	ctx.fill();
+	ctx.fillStyle = fill;
+}
+
+function makeBar(){
+	bars.push(
+		{
+			x: canvas.width - 30,
+			height: Math.floor(Math.random() * 300) + 50, 
+			gap: Math.floor(Math.random() * 50) + 50
+		}
+	)
+}
+
+function moveBird(ts){
+	bird.y  = Math.max(0, Math.min(canvas.height, bird.y + bird.velocity * ts/1000));
+	}
+
+function moveBars(timestep){
+	bars.forEach( x => x.x -= 50 * timestep/1000);
+	bars = bars.filter( x=> x.x < canvas.width && x.x > 0);
+	}
+
+function drawBars(){
+	bars.forEach( x=>drawPipe( x.x, x.height, x.gap))
+	}
+	
+function collisions(){
+	if (bars.length == 0) return false;
+	let lastbar = bars[0];
+	if (Math.abs(lastbar.x - bird.x) > 10) return false;
+	return bird.y < lastbar.height || bird.y >  (lastbar.height + lastbar.gap)
+	}
+	
+
+var count = 0;
+var cooldown = 0;
+var time=0;
+var paused = false;
+function drawLoop(newtime){
+	let timestep = newtime - time;
+	time = newtime;
+	if (!paused){
+
+	ctx.fillRect(0,0,canvas.width,canvas.height);
+	moveBird(timestep);
+	moveBars(timestep);
+	count = (count + 1) % 120;
+	if (count == 0){
+		makeBar();
+	}
+	drawBars();
+	cooldown = Math.max(cooldown-1, 0);
+	if (bird.velocity < 50){
+		bird.velocity +=10;
+		} 
+	drawBird();
+	if (collisions()){
+		bars = [];
+		bird.velocity = 0;
+		}
+	}
+	requestAnimationFrame(drawLoop);
+}
+
+
+function keypress(keyevent){
+	if (event.code == "Space" && cooldown == 0){
+	bird.velocity = -200 
+	cooldown = 20;
+	}
+	if (event.code == "KeyP"){
+		paused = !paused;
+	}
+}
+
+document.addEventListener("keydown", keypress);
+ctx.fillStyle = "blue";
+requestAnimationFrame(drawLoop);
+ 
+
+
+</script>
