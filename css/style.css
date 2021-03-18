@@ -2,6 +2,7 @@ body {
     font-family:'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
     margin:0px;
     background-image: linear-gradient(#0505f0, darkviolet);
+    color: #f0f0f0;
 }
 
 a:hover{
@@ -13,7 +14,6 @@ a:hover{
     grid-row: 1 / 3;
     grid-column: 1;
     overflow: hidden;
-    border: thick double black;
 }
 
 .sidebar-elt{
@@ -25,36 +25,45 @@ a:hover{
     width: 100%;
     height: inherit;
     display: grid;
-    grid-template-columns: 75px 1fr 75px;
-    grid-template-rows: 5vmin 5vmin 1fr;
+    grid-template-columns: 10vw 1fr 10vw;
+    grid-template-rows: 5vh 5vh 1fr;
     align-items: center;
-    align-content: center;
+    justify-items: center;
+}
+.page a {
+    text-decoration-line: none;
+    color: grey;
 }
 
 .head {
     grid-row:1;
     grid-column:2;
     text-align: center;
-    align-content: center;
+    justify-content: center;
+    margin-top: 20px;
     font-family:'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
-    color: #f0f0f0;
+    
 }
+
 
 .body {
     grid-row: 3;
     grid-column: 2;
-    padding-left: 10px;
+    padding-left: 5vw;
 }
 
 .flexbox {
     display: flex;
     flex-direction: column;
     max-height: inherit;
+    color: black;
+    max-width: 450px;
+    min-width: 70vw;
 }
 
 .flexitem {
-    padding: 4vmin;
-    margin: 2vmin 2vmin;
+    padding: 4vh;
+    margin: 2vh 2vh;
     border: thin solid white;
     border-radius: 6px;
     background-color:darkorchid;
@@ -64,7 +73,8 @@ a:hover{
 .flexitem:hover{
     border-width: 3px;
 }
-
+ 
 .flexbox a {
-    text-decoration-line: none;
+    color:  black;
 }
+
