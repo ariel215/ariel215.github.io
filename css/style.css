@@ -3,7 +3,7 @@ body {
     margin:0px;
     background-image: linear-gradient(#0505f0, darkviolet);
     color: #f0f0f0;
-    height: 100%;
+    height: 100vh;
 }
 
 a:hover{
@@ -14,7 +14,7 @@ a:hover{
 .sidebar{
     grid-row: 1;
     grid-column: 1;
-    overflow: hidden;
+    overflow: visible;
 }
 
 .sidebar-elt{
