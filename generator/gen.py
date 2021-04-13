@@ -2,28 +2,46 @@ import jinja2
 import typing
 import json
 import os
+import os.path as osp
 import marko
 
-
 class Page:
-    def __init__(self, html, path):
-        self.html = html
-        self.path = path
 
-def build_page(filepath: str):
+    ENV = jinja2.Environment(
+            loader=jinja2.FileSystemLoader(
+                os.path.join(os.path.dirname(__file__), 'templates')),
+    )
+
+    def __init__(self, header, body):
+        self.header = header
+        self.body = body
+        self.path = header.get('path')
+        self.name = header.get('name') or osp.splitext(
+                                               osp.basename(path))[0]
+        self._render()
+
+    def _render(self):
+        template = ENV.get_template(self.header['template'])
+        self.txt = template.render(stylesheets=self.header['stylesheets'], 
+            header=self.header['header'],
+                            body=marko.convert(self.body))
+
+    def write(): 
+        with open(os.path.join(root(), page.path), 'w') as dest:
+            dest.write(page.html)
+
+def root():
+    return os.path.dirname(os.path.dirname(__file__))
+
+def build_page(filepath: str) -> Page:
     """
     Primary function for turning my markup into the html I want
     :param filepath:
     :return:
     """
     with open(filepath) as text:
-        header, body = parse(text)
-    page = render(header, body)
-    root = os.path.dirname(os.path.dirname(__file__))
-    with open(os.path.join(root, page.path), 'w') as dest:
-        dest.write(page.html)
-
-
+        return Page(*parse(text))
+    
 def parse(txt: typing.TextIO):
     header_lines = []
     body_lines = []
@@ -44,12 +62,9 @@ def parse(txt: typing.TextIO):
     return header, body
 
 
-def render(header, body):
-    env = jinja2.Environment(
-            loader=jinja2.FileSystemLoader(os.path.join(os.path.dirname(__file__), 'templates')),
-    )
-    template = env.get_template(header['template'])
-    txt = template.render(stylesheets=header['stylesheets'], header=header['header'],
-                          body=marko.convert(body))
-    return Page(txt, header['path'])
-
+def build_index(pages: list[Page]):
+    env = _env()
+    index_template = env.get_template('index.htm.tpl')
+    txt = index_template.render(pages=pages, stylesheets=['css/style.css'])
+    with open(osp.join(root(), 'index.html', 'w') as dest:
+        dest.write(txt)

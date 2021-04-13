@@ -2,6 +2,8 @@
 "template": "text-page.htm.tpl"
 "header": "Contact Me"
 "path": "html/contact.html" 
+"index": true
+"name": "Socials"
 ===
 
 If you want to be in touch, the best way is via email: 
