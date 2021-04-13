@@ -24,7 +24,7 @@ class Page:
         template = Page.ENV.get_template(self.header['template'])
         self.txt = template.render(stylesheets=self.header['stylesheets'], 
             header=self.header['header'],
-                            body=marko.convert(self.body))
+                            body=marko.convert(self.body),name=self.name)
 
     def write(self): 
         with open(os.path.join(root(), self.path), 'w') as dest:
@@ -65,6 +65,6 @@ def parse(txt: typing.TextIO):
 def build_index(pages: list):
     env = Page.ENV
     index_template = env.get_template('index.htm.tpl')
-    txt = index_template.render(pages=pages, stylesheets=['css/style.css'])
+    txt = index_template.render(pages=pages, stylesheets=['css/style.css'], title="Ariel Davis")
     with open(osp.join(root(), 'index.html'), 'w') as dest:
         dest.write(txt)
