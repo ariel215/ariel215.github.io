@@ -21,14 +21,14 @@ class Page:
         self._render()
 
     def _render(self):
-        template = ENV.get_template(self.header['template'])
+        template = Page.ENV.get_template(self.header['template'])
         self.txt = template.render(stylesheets=self.header['stylesheets'], 
             header=self.header['header'],
                             body=marko.convert(self.body))
 
-    def write(): 
-        with open(os.path.join(root(), page.path), 'w') as dest:
-            dest.write(page.html)
+    def write(self): 
+        with open(os.path.join(root(), self.path), 'w') as dest:
+            dest.write(self.txt)
 
 def root():
     return os.path.dirname(os.path.dirname(__file__))
@@ -62,9 +62,9 @@ def parse(txt: typing.TextIO):
     return header, body
 
 
-def build_index(pages: list[Page]):
-    env = _env()
+def build_index(pages: list):
+    env = Page.ENV
     index_template = env.get_template('index.htm.tpl')
     txt = index_template.render(pages=pages, stylesheets=['css/style.css'])
-    with open(osp.join(root(), 'index.html', 'w') as dest:
+    with open(osp.join(root(), 'index.html'), 'w') as dest:
         dest.write(txt)
