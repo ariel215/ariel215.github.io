@@ -17,7 +17,7 @@ class Page:
         self.body = body
         self.path = header.get('path')
         self.name = header.get('name') or osp.splitext(
-                                               osp.basename(path))[0]
+                                               osp.basename(self.path))[0]
         self._render()
 
     def _render(self):
