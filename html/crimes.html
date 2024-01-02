@@ -3,9 +3,13 @@
     <link rel="stylesheet" src="css/style.css">
 </head>
 <body>
+    <script
+    src="https://code.jquery.com/jquery-3.7.1.min.js"
+    integrity="sha256-/JqT3SQfawRcv/BIHPThkBvs0OEvtFFmqPF/lYI/Cxo="
+    crossorigin="anonymous"></script>
     <style>
         #square {
-            animation: 5s infinite linear rotate;
+            animation: 5s infinite linear 1s rotate;
             height: 50px;
             width: 50px;
             position: relative;
@@ -18,6 +22,9 @@
             from {
             transform: rotate(0turn)
             }
+            10% {
+                transform: rotate(0turn);
+            }
             50% {
                 transform: rotate(0.5turn);
             }
@@ -27,16 +34,22 @@
         }
 
         #square-holder {
-            animation: 5s infinite linear rotate-r;
+            animation: 5s infinite linear 1s rotate-r;
             align-content: center;
             width: 250px;
             height: 250px;
+            background: rgb(134, 133, 133);
+            shape-outside: circle();
+            clip-path: circle();
         }
 
         @keyframes rotate-r {
             from {
                 transform: rotate(0turn)
                 }
+            10% {
+                transform: rotate(0turn);
+            }
             50% {
                 transform: rotate(-0.5turn);
             }
@@ -48,7 +61,84 @@
             align-content: center;
         }
     </style>
-    <div id="square-holder">
+    <div id="square-holder" title="click to pause/play">
         <div id="square"></div>
     </div>
+    <script>
+        $(()=>{
+            const square = $("#square")[0];
+            const outer = $("#square-holder")[0];
+            outer.addEventListener("click",(ev)=>{
+                for (let obj of [square, outer]) {
+                    let animation = obj.getAnimations()[0];
+                    animation.playbackRate = 1-animation.playbackRate
+                }
+            })
+            }
+        )
+
+    </script>
+    <div id="cube-holder">
+        <div id="cube1" class="cube-face"> 1 </div>
+        <div id="cube2" class="cube-face"> 2 </div>
+        <div id="cube3" class="cube-face"> 3 </div>
+        <div id="cube4" class="cube-face">4 </div>
+        <div id="cube5" class="cube-face">5 </div>
+        <div id="cube6" class="cube-face">6</div>
+    </div>
+    <style>
+        #cube-holder{
+            perspective: 800px;
+            perspective-origin: 200% 200%;
+            transform-style: preserve-3d;
+            width: 100px;
+            height: 100px;
+            top: 50%;
+            left: 300px;
+            position: absolute;
+            transform: perspective(none) translateZ(-50px);
+            animation: 5s 3 linear 1s rotate3;
+
+        }
+
+        @keyframes rotate3 {
+            from {
+                rotate: x 0deg
+            }
+            to {
+                rotate: x 360deg
+            }
+        }
+        .cube-face {
+            width: 100px;
+            height: 100px;
+            backface-visibility: inherit;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            position: absolute;
+            color: rgb(224, 209, 209);
+            font-size: larger;
+        }
+        #cube2 {
+            transform: rotateY(270deg) translateZ(50px);
+            background-color: #ff08;
+        }
+        #cube1 {
+            transform: translateZ(50px);
+            background-color: #f008;
+        }
+        #cube3 {
+            transform:  rotateY(90deg) translateZ(50px);
+            background-color: #0f08;
+        }
+        #cube4 {
+            transform: rotateX(90deg) translateZ(50px);
+            background-color: #00f8;
+        }
+        #cube5{
+            transform: rotateX(270deg) translateZ(50px);
+            background-color: #0ff8;
+        }
+    </style>
 </body>
