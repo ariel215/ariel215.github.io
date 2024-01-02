@@ -12,7 +12,7 @@ a:hover{
 }
 
 .sidebar{
-    grid-row: 1;
+    grid-row: 2;
     grid-column: 1;
     overflow: visible;
 }
@@ -59,7 +59,6 @@ a:hover{
     max-height: inherit;
     color: black;
     max-width: 450px;
-    min-width: 70vw;
     padding-top: 5vh;
     
 }

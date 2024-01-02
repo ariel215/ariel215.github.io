@@ -1,9 +1,10 @@
 {% extends 'base.html.tpl' %}
+
 {% block header %}
 <div class='head'><h1> Ariel Davis </h1></div>
 {% endblock %}
 
-{% block body %}
+{% block sidebar %}
 <div class="flexbox">
 {% for page in pages -%}
 <a href={{ page.path }}>
@@ -12,4 +13,5 @@
     </div>
 </a>
 {% endfor %}
+</div>
 {%endblock%}

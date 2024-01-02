@@ -3,7 +3,6 @@
     {% for sheet in stylesheets %}
     <link rel="stylesheet" type="text/css" href="{{ sheet }}"/>
     {% endfor %}
-    <title> {{ name }} </title>
 </head>
 <body>
     <div class="page">
