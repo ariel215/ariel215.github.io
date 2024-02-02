@@ -1,6 +1,6 @@
 "stylesheets": ["../css/style.css"]
 "template": "text-page.htm.tpl"
-"header": "My Games"
+"title": "My Games"
 "path": "html/games.html" 
 "index": true
 "name": "Games"

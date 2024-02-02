@@ -4,67 +4,72 @@ import json
 import os
 import os.path as osp
 import marko
-
-class Page:
-
-    ENV = jinja2.Environment(
-            loader=jinja2.FileSystemLoader(
-                os.path.join(os.path.dirname(__file__), 'templates')),
-    )
-
-    def __init__(self, header, body):
-        self.header = header
-        self.body = body
-        self.path = header.get('path')
-        self.name = header.get('name') or osp.splitext(
-                                               osp.basename(self.path))[0]
-        self._render()
-
-    def _render(self):
-        template = Page.ENV.get_template(self.header['template'])
-        self.txt = template.render(stylesheets=self.header['stylesheets'], 
-            header=self.header['header'],
-                            body=marko.convert(self.body),name=self.name)
-
-    def write(self): 
-        with open(os.path.join(root(), self.path), 'w') as dest:
-            dest.write(self.txt)
+from dataclasses import dataclass
+from enum import Enum
 
 def root():
     return os.path.dirname(os.path.dirname(__file__))
 
-def build_page(filepath: str) -> Page:
+ENV = jinja2.Environment(
+        loader=jinja2.FileSystemLoader(
+            os.path.join(os.path.dirname(__file__), 'templates')),
+)
+
+class Category(str,Enum):
+    POST = "post"
+    INFO = "info"
+
+@dataclass
+class Header:
     """
-    Primary function for turning my markup into the html I want
-    :param filepath:
-    :return:
+    Post header to describe how a markdown post should 
+    be translated to a webpage
     """
-    with open(filepath) as text:
-        return Page(*parse(text))
-    
-def parse(txt: typing.TextIO):
-    header_lines = []
-    body_lines = []
-    reading_header = True
-    for line in txt:
-        if line.strip().startswith("==="):
-            reading_header = False
-            continue
-        if reading_header:
-            header_lines.append(line.strip())
-        else:
-            body_lines.append(line.strip())
-    # Header is json literals but:
-    #   * no outer braces
-    #   * newlines in place of commas
-    header = json.loads('{' + ','.join(header_lines) + '}')
-    body = '\n'.join(body_lines)
-    return header, body
+    stylesheets: typing.List[str] # list of paths to stylesheets for the post
+    template: str # base template for the post to use
+    title: str # Post title; goes at the top
+    path: str # destination for 
+    index: bool
+    name: typing.Optional[str] = None #post name; used on home page
+    category: Category = Category.POST
+
+class Post:
+    def __init__(self, filename: str):
+        with open(filename) as txt:
+            header_lines = []
+            body_lines = []
+            reading_header = True
+            for line in txt:
+                if line.strip().startswith("==="):
+                    reading_header = False
+                    continue
+                if reading_header:
+                    header_lines.append(line.strip())
+                else:
+                    body_lines.append(line.strip())
+            # Header is json literals but:
+            #   * no outer braces
+            #   * newlines in place of commas
+        self.header = Header(**json.loads('{' + ','.join(header_lines) + '}'))
+        self.body = '\n'.join(body_lines)
+        self.path = self.header.path
+        self.name = self.header.name or osp.splitext(
+                                               osp.basename(self.header.path))[0]
+
+    def render(self)->str:
+        template = ENV.get_template(self.header.template)
+        return template.render(
+            stylesheets=self.header.stylesheets, 
+            header=self.header.title,
+            body=marko.convert(self.body),name=self.name)
+
+    def write(self): 
+        with open(os.path.join(root(), self.header.path), 'w') as dest:
+            dest.write(self.render())
 
 
 def build_index(pages: list):
-    env = Page.ENV
-    index_template = env.get_template('index.htm.tpl')
+    index_template = ENV.get_template('index.htm.tpl')
     txt = index_template.render(pages=pages, stylesheets=['css/style.css'], title="Ariel Davis")
     with open(osp.join(root(), 'index.html'), 'w') as dest:
         dest.write(txt)

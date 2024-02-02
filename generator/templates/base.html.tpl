@@ -10,7 +10,7 @@
             {% block sidebar %}
             {% endblock %}
         </div>
-        {%block header -%}
+        {%block title -%}
         <div class="head">
             {{ header }}
         </div>

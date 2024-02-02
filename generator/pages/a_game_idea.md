@@ -1,7 +1,8 @@
 "stylesheets": ["../css/style.css"]
 "template": "text-page.htm.tpl"
-"header": "Design doc"
+"title": "Design doc"
 "path": "html/game_idea.html" 
+"name": "Game Idea"
 "index": true
 =======================
 
@@ -20,5 +21,4 @@ Length: ??? short. 15 minutes is 5-8 levels is probably as many as I can reasona
 Controls & mechanics: 
 - WASD to move
 - Shift+WASD to jump
-- Timing window for inputs to work
-
+- rhythm-based inputs
