@@ -6,5 +6,5 @@ page_dir = osp.join(osp.dirname(__file__), 'pages', '*.md')
 pages = [gen.Post(p) for p in  glob.glob(page_dir)]
 for p in pages:
     p.write()
-gen.build_index(p for p in pages if p.header.index)
+gen.build_index(pages)
 

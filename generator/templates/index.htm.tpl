@@ -5,23 +5,26 @@
 {% endblock %}
 
 {% block sidebar %}
-<div class="sidebar">
 {% for page in pages -%}{% if page.header.category == "info" %}
+    <div class="sidebar-entry flexbox">
+
 <a href={{ page.path }}>
-    <div class="sidebar sidebar-entry">
     {{ page.name }}
-    </div>
 </a>
+    </div>
+
 {% endif %}{% endfor %}
-</div>
 {%endblock%}
 
 {% block body%}
-{% for page in pages -%}{% if page.header.category == "post" %}
+<h2> Posts </h2>
+<hr>
+{% for page in pages-%}
+{% if page.header.category == "post" %}
 <a href={{ page.path }}>
     <div class="post-link">
     {{ page.name }}
     </div>
 </a>
-{%endif%}{%endfor%}
+{%endif%}{%- endfor%}
 {% endblock %}

@@ -19,5 +19,9 @@
             {% block body %}
             {% endblock %}
         </div>
+        <div class="foot">
+            {%block foot%}
+            {%endblock%}
+        </div>
     </div>
 </body>
