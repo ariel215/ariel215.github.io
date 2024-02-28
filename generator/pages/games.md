@@ -1,10 +1,12 @@
 "stylesheets": ["../css/style.css"]
 "template": "text-page.htm.tpl"
-"title": "My Games"
 "path": "html/games.html" 
 "index": true
 "name": "Games"
 ===
+
+My Games
+--------
 
 Find me on Itch.io: [tolademic.itch.io](tolademic.itch.io)
 

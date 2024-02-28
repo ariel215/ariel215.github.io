@@ -1,11 +1,14 @@
 "stylesheets": ["../css/style.css"]
 "template": "text-page.htm.tpl"
-"title": "Contact Me"
 "path": "html/contact.html" 
 "index": true
 "name": "Socials"
 "category": "info"
 ===
+
+Contact Info
+---------
+
 
 If you want to be in touch, the best way is via email: 
 ![l a d 2 5 8 @ c o r n e l l . e d u](../images/email.png)

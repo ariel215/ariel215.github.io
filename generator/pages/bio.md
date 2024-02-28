@@ -1,11 +1,13 @@
 "stylesheets": ["../css/style.css"]
 "template": "text-page.htm.tpl"
-"title": "About Me"
 "path": "html/bio.html" 
 "index": true
 "name": "<em>Curriculum Vitae</em>"
 "category": "info"
 ====
+
+About Me
+--------
 
 Hi! I'm Ariel, as you probably know by now. 
 I'm primarily a Pythonista who has worked in 

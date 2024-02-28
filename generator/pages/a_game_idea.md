@@ -1,10 +1,13 @@
 "stylesheets": ["../css/style.css"]
 "template": "text-page.htm.tpl"
-"title": "Design doc"
 "path": "html/game_idea.html" 
 "name": "Game Idea"
 "index": true
 =======================
+
+An Idea for a Game
+-----------------
+
 
 This came to me late last night, so I want to write it down before I forget and 
 it vanishes into the Idea Void:
