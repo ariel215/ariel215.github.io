@@ -20,21 +20,28 @@
         <div class="body">
             
 <div class="text-content">
-    <h2>An Idea for a Game</h2>
-<p>This came to me late last night, so I want to write it down before I forget and
-it vanishes into the Idea Void:</p>
-<p>A puzzle platformer with movement a la Crypt of the Necrodancer.
-Move and jump on the beat as tiles appear and disappear in
-rhythmic patterns</p>
-<p>Style: 3D isometric, glowing pastels or perhaps neons, simple geometric forms. Musically:
-either a kind of light floating vaporwave or a stabby techno, matching the visuals</p>
-<p>Length: ??? short. 15 minutes is 5-8 levels is probably as many as I can reasonably create.</p>
-<p>Controls &amp; mechanics:</p>
-<ul>
-<li>WASD to move</li>
-<li>Shift+WASD to jump</li>
-<li>rhythm-based inputs</li>
-</ul>
+    <h2>Don't Let Your Dreams Be Dreams</h2>
+<p>Not that the game discussed previously came to me in a dream, exactly, but you know.
+Late night epiphanies might as well be dreams.</p>
+<p>I'm going to make it in Rust because Rust is everything, its the future,
+it has reached maturity and is hotter than buttered toast and I haven't <em>really</em>
+had a major project to let me really learn how it works until now. Furthermore,
+I want to solve some of the lower-level problems of implementing something like this.</p>
+<h2>Step One: Copy the <code>miniquad</code> example code into the project</h2>
+<hr />
+<p>I did say <em>some</em> of the low-level problems. I've forgotten everything I
+ever knew about how graphics actually works, so that's where we're going to start;
+getting some tiles onto the screen.</p>
+<p>...it works! Now to take this and refactor it into something I understand.</p>
+<p>...oh. oh no. This is not what I want to use at all.</p>
+<h2>Step Two: Remove the <code>miniquad</code> example code, add the <code>raylib</code> example code</h2>
+<hr />
+<p><a href="https://www.raylib.com/">raylib</a> is a small games-like library written in C. It has
+a crate with Rust bindings. It doesn't assume I want to write shader code, and thus
+seems like it will probably be a better choice. Its example is &quot;hello world&quot;, but
+we can pretty get it to make a checkerboard pretty quickly!</p>
+<p><a href="/images/checkerboard.png">red and black checkerboard</a></p>
+<p>Next up: Let's add some rhythm!</p>
 
 </div>
 
@@ -42,10 +49,10 @@ either a kind of light floating vaporwave or a stabby techno, matching the visua
         <div class="foot">
             
 <p>
-    Created: Fri 02 Feb 2024, 12:43PM
+    Created: Thu 29 Feb 2024, 09:34PM
 </p>
 <p>
-    Last edited: Wed 28 Feb 2024, 12:50PM 
+    Last edited: Sun 03 Mar 2024, 11:30PM 
 </p>
 
         </div>
