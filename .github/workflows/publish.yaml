@@ -1,5 +1,7 @@
 name: github-pages
 on: [push]
+permissions:
+  id-token: write
 jobs:
   deploy:
     environment:
