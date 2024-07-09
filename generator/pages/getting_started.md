@@ -1,6 +1,6 @@
 "stylesheets": ["../css/style.css"]
 "template": "text-page.htm.tpl"
-"path": "html/game_idea.html" 
+"path": "html/rhythm_chase_1.html" 
 "name": "Game Idea"
 "index": true
 =======================
