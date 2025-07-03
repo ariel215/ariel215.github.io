@@ -5,35 +5,59 @@
     --box-background: rgb(155, 186, 190);
     --border-backround: rgb(65, 79, 82);
     font-family:'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
+    --text-size: large;
+    --header-text-size: xx-large;
+    font-size: var(--text-size);
+    --box-width: 30rem;
+    --box-left: 25%;
+    --row-overlap: 2rem;
+    --column-overlap: 2rem;
 }
-
 
 body {
     margin:0px;
     background-color: var(--background-color);
     color: var(--text-color);
     height: 100vh;
+    padding-top: 50px;
+    display: grid;
+    grid-template-columns: 1fr calc(var(--box-width) - var(--row-overlap)) var(--row-overlap) calc(var(--box-width) - var(--row-overlap)) 1fr;
+    grid-auto-rows: min-content;
+}
+
+body > *:nth-child(2n + 1){
+    grid-column: 2/4;
+}
+
+body > *:nth-child(2n){
+    grid-column: 3/5;
 }
 
 
-.box {
-    background-color: var(--box-background);
-    border-image: radial-gradient(var(--border-backround), white 50%,var(--border-backround)) 27;
-    border-width: 5px;
-    border-style: solid;
+@media (max-width: 1100px){
+    :root {
+        --box-width: 20rem;
+        --box-left: 10%;
+    }
+
+    body {
+        grid-template-columns: auto auto auto;
+        gap: 5rem;
+    }
+
+        
+    body > *:nth-child(2n + 1){
+        grid-column: 2/3;
+    }
+
+    body > *:nth-child(2n){
+        grid-column: 2/3;
+    }
+
+
 }
 
 
-header {
-    position: absolute;
-    text-align: center;
-    grid-area: b;
-    left: 20rem;
-    top: 7rem;
-    width: 40rem;
-    height: 10rem;
-    z-index: 5;
-}
 
 a{
     outline-color: transparent;
@@ -44,8 +68,6 @@ a:link {
     color: var(--link-color)
 }
 
-a:visited {
-}
 
 a:focus{
     background-color: var(--background-color);
@@ -55,27 +77,28 @@ a:hover {
     background-color: var(--background-color);
 }
 
-
 a:active{
     color: rgb(85, 9, 130);
     background-color: palegoldenrod;
 
 }
-main {
-    position: absolute;
-    left: 55rem;
-    top: 15rem;
+
+.box {
+    position: relative;
     background-color: var(--box-background);
-    min-height: 20rem;
-    min-width: 40rem;
+    border-image: radial-gradient(var(--border-backround), white 50%,var(--border-backround)) 27;
+    border-width: 5px;
+    border-style: solid;
+    min-width: var(--box-width);
+    width: fit-content;
     text-align: center;
-    display: flex;
-    flex-direction: column;
-    font-size: x-large;
-    
 }
 
-main > nav {
+.box:not(:first-child) {
+    top: -1rem;
+}
+
+.box > .box-inner {
     display: flex;
     flex-direction: column;
     flex: 1 1 auto;
@@ -83,12 +106,65 @@ main > nav {
     background-color: whitesmoke;
 }
 
-nav > * {
+.box-inner > * {
     background-color: var(--box-background);
+    height: 100%;
     display: block;
     flex: 1 1 auto;
     padding: 0.75rem;
     margin: 0.25rem;
     align-content: center;
     border-radius: 5px;
+}
+
+.box-inner > h2 {
+    font-size: var(--header-text-size);
+    color: var(--text-color);
+    margin: 0;
+    padding: 0;
+    border-radius: 0;
+}
+
+header {
+    text-align: center;
+    height: 10rem;
+    z-index: 5;
+}
+
+main {
+    min-height: 20rem;
+    display: flex;
+    flex-direction: column;
+    height: fit-content;
+    width: fit-content;
+    z-index: 4;
+}
+
+#toys {
+    top: -2rem;
+    z-index: 3;
+    display: flex;
+    flex-direction: column;
+}
+
+@media (max-width: 500px){
+    :root {
+        --box-left: 0
+    }
+
+    .box:nth-child(n){
+        top:0 
+    }
+
+    header {
+        height: 5rem;
+    }
+
+    main {
+        top: 1rem;
+    }
+
+    #toys{
+        top: 2rem;
+    }
 }
